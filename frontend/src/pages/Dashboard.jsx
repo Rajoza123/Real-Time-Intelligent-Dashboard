@@ -18,7 +18,7 @@ export default function Dashboard() {
     }, 1500);
 
     return () => clearInterval(interval);
-  }, [loadAlerts, loadAbnormal]);
+  }, []);
 
   return (
     <div className="p-6 max-w-4xl mx-auto">

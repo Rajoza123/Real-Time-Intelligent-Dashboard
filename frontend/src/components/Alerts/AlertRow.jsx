@@ -1,5 +1,5 @@
 import Badge from "../Common/Badge";
-import { prettyTime } from "../../utils/format";
+import { prettyTime } from "../../utils/formate";
 
 export default function AlertRow({ row }) {
   const e = row.event;

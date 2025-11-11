@@ -1,54 +1,62 @@
 import { create } from "zustand";
-import { fetchAlerts, fetchAbnormal } from "../api/alertsApi";
+import dayjs from "dayjs";
+import { fetchAlerts, fetchAbnormal, fetchHealth } from "../lib/api";
+
+const severities = ["Critical", "Moderate", "Low"];
 
 export const useAlertStore = create((set, get) => ({
+  loading: false,
   alerts: [],
-  filteredAlerts: [],
   abnormal: [],
+  health: null,
+
+  // filters
   filters: {
     cameraId: "",
     label: "",
-    severity: ""
+    severity: "",
+    search: "",   // fuzzy on label/cameraId
+    limit: 300,   // you asked for “all”; use a high number to avoid huge payloads
   },
 
-  loadAlerts: async () => {
-    const data = await fetchAlerts();
-    set({ alerts: data });
-    get().applyFilters();
+  setFilter(key, value) {
+    set(state => ({ filters: { ...state.filters, [key]: value } }));
+  },
+  resetFilters() {
+    set({ filters: { cameraId: "", label: "", severity: "", search: "", limit: 300 } });
   },
 
-  loadAbnormal: async () => {
+  async loadHealth() {
+    const data = await fetchHealth();
+    set({ health: data });
+  },
+
+  async loadAlerts() {
+    const { filters } = get();
+    set({ loading: true });
+    const params = {
+      ...(filters.cameraId && { cameraId: filters.cameraId }),
+      ...(filters.label && { label: filters.label }),
+      ...(filters.severity && { severity: filters.severity }),
+      ...(filters.limit && { limit: filters.limit }),
+    };
+    const data = await fetchAlerts(params);
+    let rows = data.alerts || [];
+
+    // client-side fuzzy search
+    if (filters.search) {
+      const q = filters.search.toLowerCase();
+      rows = rows.filter(r =>
+        r.event.cameraId.toLowerCase().includes(q) ||
+        r.event.label.toLowerCase().includes(q)
+      );
+    }
+
+    set({ alerts: rows, loading: false });
+  },
+
+  async loadAbnormal() {
     const data = await fetchAbnormal();
-    set({ abnormal: data });
+    set({ abnormal: data.results || [] });
   },
-
-  setFilter: (key, value) => {
-    set(state => ({
-      filters: { ...state.filters, [key]: value }
-    }));
-    get().applyFilters();
-  },
-
-  resetFilters: () => {
-    set({
-      filters: { cameraId: "", label: "", severity: "" }
-    });
-    get().applyFilters();
-  },
-
-  applyFilters: () => {
-    const { alerts, filters } = get();
-
-    const rows = alerts.filter(a => {
-      if (filters.cameraId && a.event.cameraId !== filters.cameraId)
-        return false;
-      if (filters.label && a.event.label !== filters.label)
-        return false;
-      if (filters.severity && a.severity !== filters.severity)
-        return false;
-      return true;
-    });
-
-    set({ filteredAlerts: rows });
-  }
 }));

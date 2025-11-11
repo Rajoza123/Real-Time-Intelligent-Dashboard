@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE = "https://real-time-intelligent-dashboard.onrender.com/api";
 
 export const fetchAlerts = async () => {
-  const res = await axios.get(`${BASE}/alerts?limit=50`);
+  const res = await axios.get(`${BASE}/alerts?limit=500`);
   return res.data.alerts;
 };
 

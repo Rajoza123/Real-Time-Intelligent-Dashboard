@@ -10,18 +10,19 @@ export const GEN_DEFAULTS = {
 
 export const RANKING = {
   baseLabelWeight: {
-    Fire: 1.0,
-    Smoke: 0.9,
-    Intrusion: 0.85,
-    Crowd: 0.7,
-    Loitering: 0.6,
-    Vehicle: 0.55,
-    Person: 0.5
+    Fire: 0.9,
+    Smoke: 0.8,
+    Intrusion: 0.75,
+    Crowd: 0.6,
+    Loitering: 0.55,
+    Vehicle: 0.5,
+    Person: 0.45,
+    FaceMask: 0.4
   },
-  severityCutoffs: { critical: 1.0, moderate: 0.6 },
+  severityCutoffs: { critical: 1.35, moderate: 0.85 },
   windowForFrequencyMin: 2,
-  frequencyWeight: 0.35,
-  confidenceWeight: 0.4
+  frequencyWeight: 0.25,
+  confidenceWeight: 0.3
 };
 
 export const ABNORMAL = {

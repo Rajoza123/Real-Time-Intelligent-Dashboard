@@ -74,86 +74,87 @@ export default function Dashboard() {
       </h1>
 
       {/* ⚙️ Control Panel Section */}
-      <div className="bg-gray-900/80 backdrop-blur-md p-4 rounded-lg shadow border border-gray-700">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <h2 className="text-lg font-semibold">Generator Controls</h2>
-            <span
-              className={`text-sm font-medium px-3 py-1 rounded ${
-                status === "Running"
-                  ? "bg-green-600 text-white"
-                  : status === "Stopped"
-                  ? "bg-red-600 text-white"
-                  : "bg-gray-700 text-gray-200"
-              }`}
-            >
-              {status}
-            </span>
-          </div>
+<div className="bg-gray-900/80 backdrop-blur-md p-4 rounded-lg shadow border border-gray-700">
+  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div className="flex items-center gap-3">
+      <h2 className="text-lg font-semibold">Generator Controls</h2>
+      <span
+        className={`text-sm font-medium px-3 py-1 rounded ${
+          status === "Running"
+            ? "bg-green-600 text-white"
+            : status === "Stopped"
+            ? "bg-red-600 text-white"
+            : "bg-gray-600 text-gray-200"
+        }`}
+      >
+        {status === "Error" ? "Offline" : status}
+      </span>
+    </div>
 
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => send("start")}
-              disabled={loading}
-              className="bg-green-600 hover:bg-green-700 px-3 py-1.5 rounded"
-            >
-              Start
-            </button>
-            <button
-              onClick={() => send("stop")}
-              disabled={loading}
-              className="bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded"
-            >
-              Stop
-            </button>
-            <button
-              onClick={() => send("reset")}
-              disabled={loading}
-              className="bg-gray-700 hover:bg-gray-800 px-3 py-1.5 rounded"
-            >
-              Reset
-            </button>
-          </div>
-        </div>
+    <div className="flex flex-wrap gap-2">
+      <button
+        onClick={() => send("start")}
+        disabled={loading}
+        className="bg-green-600 hover:bg-green-700 px-3 py-1.5 rounded transition"
+      >
+        Start
+      </button>
+      <button
+        onClick={() => send("stop")}
+        disabled={loading}
+        className="bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded transition"
+      >
+        Stop
+      </button>
+      <button
+        onClick={() => send("reset")}
+        disabled={loading}
+        className="bg-gray-700 hover:bg-gray-800 px-3 py-1.5 rounded transition"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
 
-        <div className="flex flex-wrap gap-4 mt-3">
-          <label className="text-sm">
-            Interval (ms):
-            <input
-              type="number"
-              value={intervalMs}
-              onChange={(e) => setIntervalMs(e.target.value)}
-              className="text-black ml-2 px-2 py-1 rounded"
-            />
-          </label>
+  <div className="flex flex-wrap items-center gap-4 mt-3">
+    <label className="text-sm">
+      Interval (ms):
+      <input
+        type="number"
+        value={intervalMs}
+        onChange={(e) => setIntervalMs(e.target.value)}
+        className="bg-gray-800 text-white border border-gray-600 ml-2 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </label>
 
-          <label className="text-sm">
-            Burst Chance:
-            <input
-              type="number"
-              step="0.05"
-              min="0"
-              max="1"
-              value={burstChance}
-              onChange={(e) => setBurstChance(e.target.value)}
-              className="text-black ml-2 px-2 py-1 rounded"
-            />
-          </label>
+    <label className="text-sm">
+      Burst Chance:
+      <input
+        type="number"
+        step="0.05"
+        min="0"
+        max="1"
+        value={burstChance}
+        onChange={(e) => setBurstChance(e.target.value)}
+        className="bg-gray-800 text-white border border-gray-600 ml-2 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </label>
 
-          <button
-            onClick={() =>
-              send("options", {
-                intervalMs: Number(intervalMs),
-                burstChance: Number(burstChance),
-              })
-            }
-            disabled={loading}
-            className="bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded"
-          >
-            Apply
-          </button>
-        </div>
-      </div>
+    <button
+      onClick={() =>
+        send("options", {
+          intervalMs: Number(intervalMs),
+          burstChance: Number(burstChance),
+        })
+      }
+      disabled={loading}
+      className="bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded transition"
+    >
+      Apply
+    </button>
+  </div>
+</div>
+
 
       {/* 🔽 Existing sections */}
       <FiltersBar cameras={cams} labels={labels} onRefresh={loadAlerts} />

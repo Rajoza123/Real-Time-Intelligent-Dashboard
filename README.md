@@ -59,6 +59,13 @@ Score = (Label Weight) + (0.4 × Confidence) + (0.35 × Frequency Term)
 | Design a professional dashboard | Dark, responsive Tailwind UI with real-time updates |
 
 ---
+### ⚠️ Note on Data Limit
+
+To maintain smooth real-time performance and avoid frontend lag during continuous polling,  
+the dashboard currently displays the **most recent 300 alerts** from the backend.
+
+Older events are automatically pruned from the view to ensure responsive updates and optimal rendering speed.  
+This design choice ensures that live monitoring remains fast, stable, and efficient even during long-running sessions.
 
 
 ## ⚙️ Backend Setup

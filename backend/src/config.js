@@ -26,8 +26,8 @@ export const RANKING = {
 };
 
 export const ABNORMAL = {
-  windowMin: 2,
-  thresholdCount: 10
+  windowMin: 5,
+  thresholdCount: 5
 };
 
 export const RETENTION_MINUTES = 30;

@@ -48,6 +48,8 @@ Designed for **24×7 monitoring environments**.
 cd backend
 npm install
 npm run dev
+
+
 🧩 2. API Endpoints
 Endpoint	Method	Description
 /api/health	GET	Check generator status
@@ -72,12 +74,16 @@ Copy code
 cd frontend
 npm install
 npm run dev
+
+
 ⚙️ 2. Environment Variable
 Create a .env file inside /frontend:
 
 ini
 Copy code
 VITE_BACKEND_URL=https://real-time-intelligent-dashboard.onrender.com/api
+
+
 🌐 3. Build for Deployment
 bash
 Copy code

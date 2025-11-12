@@ -37,7 +37,12 @@ const emitOne = () => {
 };
 
 export const startGenerator = () => {
-  if (!timer) timer = setInterval(emitOne, state.intervalMs);
+  if (timer) {
+    console.log("Generator already running — ignoring start request");
+    return;
+  }
+  timer = setInterval(emitOne, state.intervalMs);
+  console.log("Generator started");
 };
 
 export const stopGenerator = () => {

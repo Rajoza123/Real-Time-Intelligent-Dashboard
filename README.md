@@ -39,42 +39,6 @@ Designed for **24×7 monitoring environments**.
 
 ---
 
-## 🧩 System Architecture
-
-📦 Real-Time-Intelligent-Dashboard/
-├── backend/ (Node.js + Express)
-│ ├── src/
-│ │ ├── server.js → Express app entry
-│ │ ├── config.js → Generator & ranking parameters
-│ │ ├── routes/
-│ │ │ ├── health.js → /api/health status route
-│ │ │ ├── events.js → /api/events & /api/alerts feed
-│ │ │ └── controls.js → /api/controls/start | stop | reset
-│ │ ├── services/
-│ │ │ ├── eventGenerator.js → Generates simulated events
-│ │ │ ├── eventStore.js → In-memory storage (rolling buffer)
-│ │ │ ├── rankingService.js → Classifies alerts by severity
-│ │ │ └── anomalyService.js → Detects abnormal camera behavior
-│ │ └── utils/time.js → Time-based helpers
-│ └── package.json
-│
-└── frontend/ (React + Tailwind + Vite)
-├── src/
-│ ├── store/alertStore.js → Zustand store for polling API
-│ ├── components/
-│ │ ├── Alerts/ → AlertRow & AlertsList
-│ │ ├── Abnormal/ → AbnormalPanel
-│ │ ├── Metrics/ → MetricCard & MetricsRow
-│ │ └── Filters/ → FiltersBar (camera, label, severity)
-│ └── pages/Dashboard.jsx → Main dashboard with control buttons
-├── tailwind.config.js
-├── postcss.config.js
-└── vite.config.js
-
-yaml
-Copy code
-
----
 
 ## ⚙️ Backend Setup
 

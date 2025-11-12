@@ -2,7 +2,7 @@ export const PORT = process.env.PORT || 4000;
 
 export const GEN_DEFAULTS = {
   enabled: true,
-  intervalMs: 700,
+  intervalMs: 3000,
   burstChance: 0.15,
   cameras: ["CAM-01","CAM-02","CAM-03","CAM-04","CAM-05"],
   labels: ["Person","Vehicle","Intrusion","Fire","Smoke","Loitering","Crowd"]
